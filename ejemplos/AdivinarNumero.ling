@@ -1,0 +1,34 @@
+# Adivinar un número
+# 16 dic 2020
+
+Programa AdivinaNúmero
+Numero intentos
+Numero numeroSecreto
+Cadena numeroEscritoC
+Numero numeroEscrito
+
+AsignarA intentos 3
+AsignarA numeroSecreto redondear(aleatorio(10))
+
+Escribir "Adivine el número (del 1 al 10)"
+Leer numeroEscritoC
+AsignarA numeroEscrito textoanum(numeroEscritoC)
+Mientras numeroSecreto~numeroEscrito
+  Si numeroSecreto>numeroEscrito
+    Escribir "Más alto"
+  SiNo
+    Escribir "Más bajo"
+  Fin
+  AsignarA intentos intentos-1
+  Si intentos = 0
+    Regresar
+  Fin
+  Escribir "Le quedan " + numatexto(intentos) + " intentos"
+  Leer numeroEscritoC
+  AsignarA numeroEscrito textoanum(numeroEscritoC)
+Fin
+Si numeroSecreto = numeroEscrito
+  Escribir "Ha adivinado!"
+SiNo
+  Escribir "El número era " + numatexto(numeroSecreto)
+Fin

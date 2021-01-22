@@ -1,0 +1,8 @@
+# Convertir temperaturas Celsius a Fahrenheit
+# 12 ene 2021
+
+Programa TeoremaPitágoras
+Cadena grados
+Escribir "Escriba los grados Celsius a convertir"
+Leer grados
+Escribir numatexto(textoanum(grados)*1.8+32) + " grados Fahrenheit"
