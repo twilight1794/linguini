@@ -2,7 +2,7 @@
 ;;;###autoload
 (define-derived-mode linguini-mode
   prog-mode "Linguini"
-  "Toggle Paws mode.
+  "Toggle Linguini mode.
 Interactivamente sin argumento, este comando des/activa el modo."
   ;; Colorear sintaxis
   (setq font-lock-defaults '((linguini-font-lock-keywords))))
@@ -20,7 +20,7 @@ Interactivamente sin argumento, este comando des/activa el modo."
             (x-types-regexp (regexp-opt x-types 'words))
             (x-constants-regexp (regexp-opt x-constants 'words))
             ;(x-events-regexp (regexp-opt x-events 'words))
-            (x-functions-regexp (regexp-opt x-functions 'words)))
+            (x-functions-regexp (regexp-opt x-functions 'words))
 )
         `(
           (,x-types-regexp . font-lock-type-face)
