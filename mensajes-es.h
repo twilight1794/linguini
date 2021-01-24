@@ -16,6 +16,10 @@ typedef enum {
               COD_NOARCHIVO = 601, COD_PARAMETROS
 } ling_codigomsg;
 
+/*
+ * Muestra un mensaje de error o ayuda
+ * @param c Código a procesar
+ */
 ling_codigomsg Registrar(ling_codigomsg c, ...){
   va_list params;
   bool d = false;

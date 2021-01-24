@@ -8,8 +8,5 @@ Escribir "Escriba el tamaño del primer cateto"
 Leer a
 Escribir "Escriba el tamaño del segundo cateto"
 Leer b
-# Acordarme de las mayúsculas
 # Después de una expresión, ya no vale comentarios
 Escribir "Hipotenusa: " + numatexto((textoanum(a)^2+textoanum(b)^2)_2)
-#Escribir "Hipotenusa: "+ numatexto(2+3)
-#Escribir numatexto((textoanum(a)+textoanum("4"))_2)
