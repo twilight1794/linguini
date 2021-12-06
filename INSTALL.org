@@ -1,0 +1,23 @@
+#+TITLE: Instrucciones de compilación
+
+- ~./make~ para compilar
+- ~./make clean~ para limpiar el directorio ~build/~ al estado inicial
+ - ~git checkout -- .~ si se usa Git, y los cambios en el repositorio no se han añadido a seguimiento
+- ~./make docs~ para generar la documentación, pero se requiere tener instalado ~doxygen~, y opcionalmente, ~pandoc~ si se quiere incluir la referencia del lenguaje en la documentación de Doxygen
+
+* Proyecto
+- ~./build~ contiene los archivos ejecutables generados al compilar.
+- ~./docs~ contiene la documentación generada por Doxygen.
+- ~./examples~ contiene archivos fuente en Linguini para probar.
+- ~./extras~ contiene recursos útiles para trabajar con Linguini, pero que no son parte del programa.
+- ~./src~ contiene el código fuente.
+- ~./tests~ contiene código fuente para probar.
+
+* Archivos fuente
+- ~expresion~ crea un AST para expresiones
+- ~linguini~ es el compilador que genera el bytecode Linguini
+- ~lista~ implementa listas doblemente enlazadas, base de muchos objetos en Linguini
+- ~remy~ es la máquina virtual. Interpreta el bytecode Linguini
+- ~utilidades~ implementa varios objetos útiles para el proyecto
+
+Información adicional y documentación completa en <[[https://www.raiponce.xyz/proyectos/linguini/]]>

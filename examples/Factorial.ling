@@ -1,0 +1,16 @@
+Programa Factorial
+
+Funcion Factorial
+  Acepta Entero x
+  Declarar Entero res
+  Si x<0
+    AsignarA res -1
+  PeroSi x=0
+    AsignarA res 1
+  SiNo
+    AsignarA res x+Factorial(x-1)
+  Fin
+  Regresar res
+Fin
+
+ES:Imprimir(Factorial(5):Cadena())

@@ -1,0 +1,3 @@
+gcc -g -c pila.c -o pila.o
+gcc -g -o prueba pila.o prueba_lista.c
+./prueba

@@ -1,0 +1,6 @@
+# Hola mundo
+Programa HolaMundo
+
+Importar "ES"
+
+ES:Imprimir("Hola mundo!")

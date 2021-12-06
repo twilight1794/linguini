@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- http://doccookbook.sourceforge.net/html/en/dbc.common.l10n.html -->
+<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
+  <l:l10n language="es" english-language-name="Spanish">
+    <l:gentext key="INSTRUCCION_INEXISTENTE" text="Instrucción %s inexistente" />
+    <l:gentext key="INSTRUCCION_INCOMPLETA" text="Instrucción %s incompleta" />
+    <l:gentext key="PALABRA_RESERVADA" text="%s es una palabra reservada y no puede usarse como un identificador" />
+    <l:gentext key="MULTIPLE_PROGRAMA" text="%s solo puede ir una vez al principio del programa" />
+    <l:gentext key="SALIR_NOBUCLE" text="%s solo se puede usar para salir de un bucle" />
+    <l:gentext key="REGRESAR_NOBLOQUE" text="%s solo se puede usar para finalizar un bloque" />
+    <l:gentext key="NOMODULO" text="%s no es un módulo" />
+    <l:gentext key="NOPROGRAMA" text="%s no es un programa" />
+    <l:gentext key="PARAMETROS_INVALIDOS" text="La función %s necesita %z parámetros, pero has pasado %z" />
+    <l:gentext key="IDENTIFICADOR_INVALIDO" text="Identificador %s inválido" />
+    <l:gentext key="SIN_MEMORIA" text="Memoria insuficiente" />
+    <l:gentext key="ERROR_E_S" text="El archivo no pudo abrirse" />
+    <l:gentext key="ERROR_IGNOTO" text="Hubo un error desconocido" />
+  </l:l10n>
+</l:i18n>
