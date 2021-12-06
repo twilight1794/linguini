@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE linguini>
+<l:linguini xmlns:l="https://www.raiponce.xyz/proyectos/linguini/" l:tipo="1" l:nombre="Argumentos">
+  <l:porCada l:variable="arg">
+    <l:en><l:objeto>ES</l:objeto><l:funcion></l:en>
+    <l:llamada></l:llamada>
+  </l:porCada>
+</l:linguini>

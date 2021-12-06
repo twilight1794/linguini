@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linguini xmlns="https://www.raiponce.xyz/proyectos/linguini/" tipo="1" nombre="HolaMundo">
+  <importar>
+    <expr>
+      <cadena>ES</cadena>
+    </expr>
+  </importar>
+  <llamada funcion="ES:Imprimir">
+    <param><cadena>HolaMundo</cadena></param>
+  </llamada>
+  <devolver implicito="implicito"><entero>0</entero></devolver>
+</linguini>

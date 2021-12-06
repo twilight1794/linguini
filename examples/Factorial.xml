@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linguini xmlns="https://www.raiponce.xyz/proyectos/linguini/" tipo="1" nombre="Factorial">
+  <importar>
+    <expr>
+      <cadena>ES</cadena>
+    </expr>
+  </importar>
+  <funcion nombre="Factorial">
+    <acepta clase="Entero" variable="x" />
+    <declarar clase="Entero" variable="res" />
+    <condicional>
+      <bloque>
+        <condicion><var>x</var><entero>0</entero><op tipo="menorque" /></condicion>
+        <asignara variable="res"><entero>0</entero><entero>1</entero><op tipo="resta" /></asignara>
+      </bloque>
+      <bloque>
+        <condicion><var>x</var><entero>0</entero><op tipo="igualdad" /></condicion>
+        <asignara variable="res"><entero>1</entero></asignara>
+      </bloque>
+      <delocontrario>
+        <condicion><var>x</var><entero>0</entero><op tipo="menorque" /></condicion>
+        <asignara variable="res"><var>x</var><llamada funcion="Factorial">1</llamada><op tipo="resta" /></asignara>
+      </delocontrario>
+    </condicional>
+  </funcion>
+
+  <llamada funcion="ES:Imprimir">
+    <param><cadena>HolaMundo</cadena></param>
+  </llamada>
+  <devolver implicito="implicito"><entero>0</entero></devolver>
+</linguini>
