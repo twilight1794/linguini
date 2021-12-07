@@ -1,59 +1,77 @@
 #+TITLE: Referencia de Linguini 2.0
-#+DATE: 2021-11-18
+#+DATE: 2021-12-06
+#+LANGUAGE: es
+#+AUTHOR: Giovanni Alfredo Garciliano Díaz
+#+EMAIL: rapunzel@disroot.org
+
 * Introducción
 Linguini es un lenguaje de programación sencillo y ligero, diseñado principalmente para ser fácil de entender y escribir para las personas hispanohablantes que inician en la programación. La sintaxis evita las construcciones complejas, y en su lugar, usa muchas palabras clave explícitas en vez de símbolos.
 
 Linguini es principalmente de paradigma imperativo, pero a la vez está completamente basado en objetos. Tiene un sistema de tipado fuerte, y los programas son ejecutados en una máquina virtual.
 
-Linguini es software libre y de código abierto, licenciado bajo la [[https://www.gnu.org/licenses/gpl-3.0.html][Licencia Pública General de GNU, versión 3.0]] o posterior.
+Linguini es software libre y de código abierto, licenciado bajo la [[https://www.gnu.org/licenses/gpl-3.0.html][Licencia Pública General de GNU, versión 3.0]] o posterior. La versión más reciente de esta referencia puede encontrarse en [[https://www.raiponce.xyz/proyectos/linguini/2.0]].
+
 * Historia
 Inicialmente diseñé Linguini para cumplir con el proyecto final de primer semestre de la clase de Fundamentos de Programación, en la carrera de Ingeniería en computación, en la Universidad Nacional Autónoma de México. La primera versión del lenguaje, 1.0, la entregué en dicha asignación, pero a pesar de cumplir muy bien su función, su código tiene varios defectos de diseño que deben ser corregidos.
 
 La segunda versión, 2.0, corrige éstos y otros errores, a la vez que añade nuevas características, y es la versión que entregaré como proyecto final de tercer semestre de la clase de Estructuras de Datos y Algoritmos II.
 
-El nombre del lenguaje, Linguini, viene del apodo que el grupo de la clase de primer semestre adjudicó al profesor que la impartía, aludiendo al parecido que tiene con el personaje de __Linguini Gusteau__, de la película __Ratatouille__.
+El nombre del lenguaje, Linguini, viene del apodo que el grupo de la clase de primer semestre adjudicó al profesor que la impartía, aludiendo al parecido que tiene con el personaje de /Linguini Gusteau/, de la película /Ratatouille/.
 
 * Conceptos básicos
 ** Valores
+Linguini es un lenguaje de tipado estático, es decir, todas las variables declaradas son referencias a instancias de una clase específica, que no cambia a lo largo de toda la vida de la variable. Y no solo las variables: todos los valores son instancias de una clase específica.
+
+Linguini viene con 8 clases nativas, que representan todos los tipos de datos básicos que usa el lenguaje: ~[[*Objeto][Objeto]~, ~[[*Entero][Entero]]~, ~[[*Decimal][Decimal]]~, ~[[*Cadena][Cadena]]~, ~[[*Lista][Lista]]~, ~[[*Funcion][Funcion]]~, ~[[*Logico][Logico]]~ y ~[[*Modulo][Modulo]]~, detalladas en la sección /[[*Clases incluidas en el sistema][Clases incluidas en el sistema]]/. Todas ellas pueden ser derivadas para crear clases personalizadas.
+
+A diferencia de otros lenguajes, en Linguini no existe el concepto de valor nulo. Al declarar una variable, ésta se inicializa inmediatamente con su valor predeterminado.
 
 ** Ámbito
 En Linguini prácticamente todos los objetos pertenecen a un ámbito espacial y temporal determinado, es decir, que casi ningún objeto puede estar accesible siempre y desde cualquier punto: en general todos los objetos pertenecen a un bloque, sea un módulo, un programa o una función. Esto quiere decir que si declaramos una variable al inicio de un programa, esta variable no estará disponible fuera de ese programa, por ejemplo, en un módulo importado.
 
-La única excepción son las clases incluidas de serie: ~Objeto~, ~Entero~, ~Decimal~, ~Cadena~, ~Lista~, ~Funcion~, ~Logico~, ~Modulo~ y ~Excepcion~: se pueden declarar objetos de estas clases desde cualquier ubicación del programa.
+La única excepción son las clases incluidas de serie, mencionadas arriba: se pueden declarar objetos de estas clases desde cualquier ubicación del programa.
+
 ** Errores
+En Linguini no hay un método para tratar errores durante la ejecución del programa. Cualquier ocurrencia de una excepción hará que Linguini finalice inmediatamente.
+
+Sin embargo, durante el desarrollo puede ser de mucha ayuda detectar la veracidad de ciertas condiciones, y detener el programa si es necesario. Para ello se provee de la biblioteca Aseveración.
+
 ** Metamétodos
-|------------------+------------------------------|
-| Metamétodo       | Descripción                  |
-|------------------+------------------------------|
-| __suma           | Suma                         |
-| __resta          | Resta                        |
-| __multiplicacion | Multiplicación               |
-| __division       | División                     |
-| __resto          | Resto de una división entera |
-| __potencia       | Potencia                     |
-| __raiz           | Raíz                         |
-| __mayorque       | Comparación mayor que        |
-| __menorque       | Comparación menor que        |
-| __igualdad       | Igualdad                     |
-| __desigualdad    | Desigualdad                  |
-| __y              | Y lógico                     |
-| __o              | O lógico                     |
-| __cadena         | Conversión a Cadena          |
-| __entero         | Conversión a Entero          |
-| __flotante       | Conversión a Flotante        |
-| __booleano       | Conversión a Booleano        |
-| __lista          | Conversión a Lista           |
-| __asignacion     | Asignación                   |
-| __creacion       | Inicialización               |
-| __destruccion    | Destrucción                  |
-| __obtener        | Indizado                     |
-| __elementos      | Lista de elementos           |
-| __tamano         | Tamaño                       |
-| __lectmetodo     | Lectura de un método         |
-| __modmetodo      | Modificación de un método    |
-| __elimmetodo     | Borrado de un método         |
-| __copia          | Copia de un valor            |
-| __iteracion      | Iteración                    |
+|--------------------+------------------------------|
+| Metamétodo         | Descripción                  |
+|--------------------+------------------------------|
+| ~__suma~           | Suma                         |
+| ~__resta~          | Resta                        |
+| ~__multiplicacion~ | Multiplicación               |
+| ~__division~       | División                     |
+| ~__resto~          | Resto de una división entera |
+| ~__potencia~       | Potencia                     |
+| ~__raiz~           | Raíz                         |
+| ~__mayorque~       | Comparación mayor que        |
+| ~__menorque~       | Comparación menor que        |
+| ~__igualdad~       | Igualdad                     |
+| ~__desigualdad~    | Desigualdad                  |
+| ~__y~              | Y lógico                     |
+| ~__o~              | O lógico                     |
+| ~__cadena~         | Conversión a Cadena          |
+| ~__entero~         | Conversión a Entero          |
+| ~__decimal~        | Conversión a Decimal         |
+| ~__logico~         | Conversión a Lógico          |
+| ~__lista~          | Conversión a Lista           |
+| ~__asignacion~     | Asignación                   |
+| ~__creacion~       | Inicialización               |
+| ~__destruccion~    | Destrucción                  |
+| ~__obtener~        | Indizado                     |
+| ~__elementos~      | Lista de elementos           |
+| ~__tamano~         | Tamaño                       |
+| ~__lectmetodo~     | Lectura de un método         |
+| ~__modmetodo~      | Modificación de un método    |
+| ~__elimmetodo~     | Borrado de un método         |
+| ~__copia~          | Copia de un valor            |
+| ~__iteracion~      | Iteración                    |
+| ~__llamada~        | Llamada                      |
+
+** Administración de la memoria
 
 * Sintaxis
 ** Nomenclatura
@@ -242,7 +260,7 @@ SiNo
 Fin
 #+end_src
 
-* Biblioteca estándar
+* Biblioteca estándar
 ** Clases incluidas en el sistema
 *** Objeto
 *** Entero
@@ -252,7 +270,6 @@ Fin
 *** Funcion
 *** Logico
 *** Modulo
-*** Excepcion
 ** Bibliotecas disponibles
 *** Otros tipos
 **** Complejo
@@ -328,5 +345,7 @@ Archivos, rutas
 *** [#C] Tk
 *** Metalenguaje
 **** Parser
+*** Desarrollo
+**** Aseveracion
 * PC
 homepage
