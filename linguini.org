@@ -135,6 +135,82 @@ Intentar
 Excepcion
 Finalizacion
 ** ABNF
+Aquí se define la sintaxis completa de Linguini en ABNF, según lo dispuesto en el [[https://datatracker.ietf.org/doc/html/rfc5234][RFC 5234]] y el [[https://datatracker.ietf.org/doc/html/rfc7405][RFC 7405]]. El código se puede validar con [[https://tools.ietf.org/tools/bap/abnf.cgi][esta herramienta del IETF]].
+
+#+begin_src abnf
+; Conjuntos auxiliares
+; Cualquier caracter Unicode, excepto los bloques surrogados, 0xFFFE y 0xFFFF
+CAR = %x09/%x0A/%x0D/%x20-D7FF/%xE000-FFFD/%x10000-10FFFF
+ALFA = ALFAMAY/ALFAMIN ; ALPHA de ABNF
+ALFAMAY = %x41-5A
+ALFAMIN = %x61-7A
+DGUAR = %x30-39 ; Guarismo decimal, DIGIT de ABNF
+HGUAR = DGUAR/"A"/"B"/"C"/"D"/"E"/"F" ; Guarismo hexadecimal, HEXDIG de ABNF
+ESP = " "/%x09 ; WSP de ABNF
+SALTO = [%x0D] %x0A ; Salto de línea, Unix o Windows
+
+; Linguini
+SANG = *ESP ; Sangrado
+SEP = 1*ESP ; Separador de símbolos
+FINL = *ESP 1*(SALTO [*ESP COMENTARIO]); Fin de línea significativo
+
+COMENTARIO = "#" (%x00-09/%x0B-0C/%x0E-FF) SALTO
+
+; Estructura
+UNIDAD = PROGRAMA/MODULO
+PROGRAMA = SANG %s"Programa" ID FINL 1*INSTRUC [FIN]
+MODULO = SANG %s"Modulo" ID FINL *USAR EXPONE [IMPLEMENTA] [FIN]
+INSTRUC = BLOQUE/SENTENCIA
+
+; Bloques
+BLOQUE = FUNCION/CLASE/SI/PORCADA/MIENTRAS/ESCOGER
+FUNCION = SANG %s"Funcion" SEP ID FINL [RECIBE] [MODIFICA] [DEVUELVE] 1*INSTRUC FIN
+CLASE = SANG %s"Clase" SEP ID FINL [EXTIENDE] EXPONE [IMPLEMENTA] FIN
+SI = SANG %s"Si" SEP EXPR FINL 1*INSTRUC *PEROSI [SINO] FIN
+PEROSI = SANG %s"PeroSi" SEP EXPR FINL 1*INSTRUC
+SINO = SANG %s"SiNo" FINL 1*INSTRUC
+PORCADA = SANG %s"PorCada" SEP ID SEP %s"en" SEP EXPR FINL 1*INSTRUC FIN
+MIENTRAS = SANG %s"Mientras" SEP EXPR FINL 1*INSTRUC FIN
+ESCOGER = SANG %s"Escoger" SEP EXPR FINL 1*CASO [PREDETERMINADO] FIN
+CASO = SANG %s"Caso" SEP EXPR FINL 1*INSTRUC FIN
+PREDETERMINADO = SANG %s"Predeterminado" FINL 1*INSTRUC FIN
+FIN = SANG %s"Fin" FINL
+
+; Modificadores de bloques
+RECIBE = SANG %s"Recibe" SEP LISTADEC FINL
+MODIFICA = SANG %s"Modifica" SEP LISTADEC FINL
+DEVUELVE = SANG %s"Devuelve" SEP OBJ FINL
+EXTIENDE = SANG %s"Extiende" SEP OBJ FINL
+EXPONE = SANG %s"Expone" FINL LISTADEC FINL
+IMPLEMENTA = SANG %s"Implementa" FINL 1*(LISTADEC/ASIGNAR/FUNCION)
+
+; Sentencias
+SENTENCIA = DECLARAR/ASIGNAR/ELIMINAR/USAR/CONTINUAR/REGRESAR
+DECLARAR = SANG %s"Declarar" SEP OBJ SEP ID FINL
+ASIGNAR = SANG %s"Asignar" SEP ID SEP EXPR FINL
+ELIMINAR = SANG %s"Eliminar" SEP ID FINL
+USAR = SANG %s"Usar" SEP EXPR FINL ; Expr: Cadena
+CONTINUAR = SANG %s"Continuar" FINL
+REGRESAR = SANG %s"Regresar" [SEP EXPR] FINL
+
+; Expresiones
+ID = VARIABLE/CONSTANTE
+VARIABLE = 1*ALFA *(ALFA/DGUAR/"_")
+CONSTANTE = 1*ALFAMAY *(ALFAMAY/DGUAR/"_")
+OBJ = ID/(EXPR ":" ID)
+LISTAID = ID ["," SEP ID]
+LISTAEXPR = EXPR ["," SEP EXPR]
+LISTADEC = *(OBJ SEP ID *SEP "," *SEP) OBJ SEP ID
+EXPR = BOOLEANO/NUMERO/CADENA/OBJ/LLAMADA/("[" EXPR "]")/(EXPR SEP OP SEP EXPR)
+BOOLEANO =  %s"Falso"/%s"Verdadero"
+NUMERO = ENTERO/DECIMAL
+ENTERO = 1*DGUAR
+DECIMAL = 1*DGUAR "." 1*DGUAR
+CADENA = %x22 CAR %x22
+LLAMADA = OBJ "(" [LISTAEXPR] ")"
+OP  = "^"/"$"/"*"/"/"/"%"/"+"/"-"/"<"/">"/"="/"=<"/"=>"/"~"/"&"/"|"
+#+end_src
+
 * Compilador
 ** Avisos
 Clave: W: permite, con advertencia; A: permite; E: no permite
@@ -164,27 +240,6 @@ Clave: W: permite, con advertencia; A: permite; E: no permite
 |----------+----------------+-------------------------------------------------------|
 
 ** k
-#+begin_src plain
-Funcion [identificador]
-  Recibe ([clase] [identificador][\n,])+
-  Modifica ([clase] [identificador][\n,])+
-  Devuelve [clase]
-  [sentencias]
-Fin
-
-Clase [identificador] (Extiende [clase])?
-  Expone ([clase] [identificador][\n,])+
-  Implementa
-    Funcion [identificador]
-      [sentencias]
-    Fin
-  Redefine
-    Funcion [identificador]
-      [sentencias]
-    Fin
-Fin
-
-
 Programa a
 Usa "lista"
 Usa "instagram" Como i
@@ -205,7 +260,6 @@ Declarar ES:Archivo f # Se inicializa, a partir de aquí es seguro usar f
 f:abrir("datos.txt")
 f:cerrar()
 
-
 Declarar Cadena i # i = ""
 Declarar Cadena j # j = ""
 AsignarA j = "b"
@@ -217,34 +271,6 @@ AsignarA i j # El valor de j es copiado en i
 
 ES:imprimir(i:nombre)
 
-
-Escoger [variable]
-  Caso 1
-    [sentencias]
-  Fin
-  Caso 2
-    [sentencias]
-  Fin
-  Predeterminado
-    [sentencias]
-  Fin
-Fin
-
-PorCada x En i
-  [sentencias]
-Fin
-
-Si [expresión]
-  [sentencias]
-PeroSi [expresión]
-  [sentencias]
-SiNo
-  [sentencias]
-Fin
-
-Mientras [expresión]
-  [sentencias]
-Fin
 
 Programa Chocolate
 
