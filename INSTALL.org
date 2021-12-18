@@ -1,9 +1,19 @@
 #+TITLE: Instrucciones de compilación
+#+DATE: 2021-12-17
+#+LANGUAGE: es
+#+OPTIONS: toc:nil
 
-- ~./make~ para compilar
-- ~./make clean~ para limpiar el directorio ~build/~ al estado inicial
- - ~git checkout -- .~ si se usa Git, y los cambios en el repositorio no se han añadido a seguimiento
-- ~./make docs~ para generar la documentación, pero se requiere tener instalado ~doxygen~, y opcionalmente, ~pandoc~ si se quiere incluir la referencia del lenguaje en la documentación de Doxygen
+- ~./make~ para compilar.
+- ~./make clean~ para limpiar el directorio ~build/~ al estado inicial.
+  - ~git checkout -- .~ si se usa Git, y los cambios en el repositorio no se han añadido a seguimiento.
+- ~./make docs~ para generar la documentación.
+
+* Dependencias
+Para compilar el proyecto se requieren algunas bibliotecas externas. Se especifican los nombres de los paquetes, según se reconocen en la rama /bullseye/ de Debian:
+- ~doxygen~ para generar la documentación con Doxygen.
+  - Opcionalmente, ~pandoc~, si se quiere incluir la referencia del lenguaje en la página principal de la documentación de Doxygen.
+- ~libxml-xpath-perl~ para compilar los archivos XML de configuración. 
+- ~libxml2-dev~ para que Linguini lea archivos XML.
 
 * Proyecto
 - ~./build~ contiene los archivos ejecutables generados al compilar.
@@ -14,10 +24,10 @@
 - ~./tests~ contiene código fuente para probar.
 
 * Archivos fuente
-- ~expresion~ crea un AST para expresiones
-- ~linguini~ es el compilador que genera el bytecode Linguini
-- ~lista~ implementa listas doblemente enlazadas, base de muchos objetos en Linguini
-- ~remy~ es la máquina virtual. Interpreta el bytecode Linguini
-- ~utilidades~ implementa varios objetos útiles para el proyecto
+- ~expresion~ crea un AST para expresiones.
+- ~linguini~ es el compilador que genera el bytecode Linguini.
+- ~lista~ implementa listas doblemente enlazadas, base de muchos objetos en Linguini.
+- ~remy~ es la máquina virtual. Interpreta el bytecode Linguini.
+- ~utilidades~ implementa varios objetos útiles para el proyecto.
 
 Información adicional y documentación completa en <[[https://www.raiponce.xyz/proyectos/linguini/]]>

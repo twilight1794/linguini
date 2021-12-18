@@ -1,6 +1,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+#xpath -q -e '//span[@id="yfs_l10_goog"][1]/text()'
+
 ### Explicación
 # -Wall -Wextra -Wpedantic -Werror → Me evita muchas malas prácticas
 # -Wformat=2                       → Me avisa sobre errores en printf
@@ -27,6 +29,7 @@ if [[ ${1:-v} == clean ]]; then
   #rm -rvf *.o ${TARGET[@]} *~
   rm -rvf bin/*
   rm -rvf *~
+  rm -rvf *.html
   exit
 fi
 
@@ -35,13 +38,31 @@ if [[ ${1:-v} == docs ]]; then
   command -v pandoc >/dev/null 2>&1
   if [[ $? == 0 ]]; then
     pandoc linguini.org -o linguini.md
-  else
-    echo >&2 "¡Necesito pandoc para generar la página de inicio de Doxygen!"
+  #else
+    #echo >&2 "¡Necesito pandoc para generar la página de inicio de Doxygen!"
   fi
 
 
   doxygen Doxyfile
   exit
+fi
+
+
+# Compilación
+command -v xpath >/dev/null 2>&1
+if [[ $? == 0 ]]; then
+  echo "libxml-xpath-perl instalado"
+else
+  echo >&2 "libxml-xpath-perl no está instalado"
+  exit 1
+fi
+
+command -v xpath >/dev/null 2>&1
+if [[ $? == 0 ]]; then
+  echo "libxml2-dev instalado"
+else
+  echo >&2 "libxml2-dev no instalado"
+  exit 1
 fi
 
 for i in "${LIBS[@]}"; do
