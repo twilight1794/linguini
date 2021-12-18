@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE RESOURCES>
+<resources xmlns="https://www.raiponce.xyz/proyectos/config#">
+  <!-- Palabras clave -->
+  <!-- Bloques -->
+  <string name="LING_PC_FUNCION">Funcion</string>
+  <string name="LING_PC_CLASE">Clase</string>
+  <string name="LING_PC_SI">Si</string>
+  <string name="LING_PC_PORCADA">PorCada</string>
+  <string name="LING_PC_MIENTRAS">Mientras</string>
+  <string name="LING_PC_ESCOGER">Escoger</string>
+  <!-- Modificadores -->
+  <string name="LING_PC_RECIBE">Recibe</string>
+  <string name="LING_PC_MODIFICA">Modifica</string>
+  <string name="LING_PC_DEVUELVE">Devuelve</string>
+  <string name="LING_PC_EXTIENDE">Extiende</string>
+  <string name="LING_PC_EXPONE">Expone</string>
+  <string name="LING_PC_IMPLEMENTA">Implementa</string>
+  <!-- Sentencias -->
+  <string name="LING_PC_DECLARAR">Declarar</string>
+  <string name="LING_PC_ASIGNAR">Asignar</string>
+  <string name="LING_PC_ELIMINAR">Eliminar</string>
+  <string name="LING_PC_USAR">Usar</string>
+  <string name="LING_PC_CONTINUAR">Continuar</string>
+  <string name="LING_PC_REGRESAR">Regresar</string>
+  <string name="LING_PC_SALIR">Salir</string>
+  <!-- Operadores -->
+  <string name="LING_OP_POTENCIA">^</string>
+  <string name="LING_OP_RAIZ">$</string>
+  <string name="LING_OP_PRODUCTO">*</string>
+  <string name="LING_OP_DIVISION">/</string>
+  <string name="LING_OP_RESTO">%</string>
+  <string name="LING_OP_SUMA">+</string>
+  <string name="LING_OP_RESTA">-</string>
+  <string name="LING_OP_MAYORIGUALQUE">&lt;=</string>
+  <string name="LING_OP_MENORIGUALQUE">=</string>
+  <string name="LING_OP_MAYORQUE">&lt;</string>
+  <string name="LING_OP_MENORQUE">></string>
+  <string name="LING_OP_IGUAL">=</string>
+  <string name="LING_OP_DISTINTO">~</string>
+  <string name="LING_OP_Y">&amp;</string>
+  <string name="LING_OP_O">|</string>
+  <!-- Valores especiales -->
+  <string name="LING_VAL_VERDADERO">Verdadero</string>
+  <string name="LING_VAL_FALSO">Falso</string>
+  <!-- Llamadas al sistema -->
+  <array name="LING_LLAM_PAUSA">
+    <string query="win">pause>NUL</string>
+    <string query="unix">read -rspn1</string>
+  </array>
+
+<!--
+#if defined(__WIN32__) || defined(__CYGWIN__)
+#elif defined(__unix__)
+#endif-->
+</resources>
