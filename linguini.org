@@ -151,7 +151,6 @@ SALTO = [%x0D] %x0A ; Salto de línea, Unix o Windows
 SANG = *ESP ; Sangrado
 SEP = 1*ESP ; Separador de símbolos
 FINL = *ESP 1*(SALTO [*ESP COMENTARIO]); Fin de línea significativo
-
 COMENTARIO = "#" (%x00-09/%x0B-0C/%x0E-FF) SALTO
 
 ; Estructura
@@ -184,40 +183,42 @@ IMPLEMENTA = SANG %s"Implementa" FINL 1*(LISTADEC/ASIGNAR/FUNCION)
 
 ; Sentencias
 SENTENCIA = DECLARAR/ASIGNAR/ELIMINAR/USAR/CONTINUAR/REGRESAR
-DECLARAR = SANG %s"Declarar" SEP OBJ SEP ID FINL
+DECLARAR = SANG %s"Declarar" SEP LISTADEC FINL
 ASIGNAR = SANG %s"Asignar" SEP ID SEP EXPR FINL
 ELIMINAR = SANG %s"Eliminar" SEP ID FINL
-USAR = SANG %s"Usar" SEP EXPR FINL ; Expr: Cadena
+USAR = SANG %s"Usar" SEP LISTAEXPR FINL ; Expr: Cadena
 CONTINUAR = SANG %s"Continuar" FINL
 REGRESAR = SANG %s"Regresar" [SEP EXPR] FINL
 
 ; Expresiones
-ID = VARIABLE/CONSTANTE
-VARIABLE = 1*ALFA *(ALFA/DGUAR/"_")
-CONSTANTE = 1*ALFAMAY *(ALFAMAY/DGUAR/"_")
-OBJ = ID/(EXPR ":" ID)
-LISTAID = ID ["," SEP ID]
-LISTAEXPR = EXPR ["," SEP EXPR]
-LISTADEC = *(OBJ SEP ID *SEP "," *SEP) OBJ SEP ID
-EXPR = BOOLEANO/NUMERO/CADENA/OBJ/LLAMADA/("[" EXPR "]")/(EXPR SEP OP SEP EXPR)
+EXPR = BOOLEANO/NUMERO/CADENA/OBJ/LLAMADA/("[" EXPR "]")/(EXPR [SEP] OP [SEP] EXPR)
 BOOLEANO =  %s"Falso"/%s"Verdadero"
 NUMERO = ENTERO/DECIMAL
 ENTERO = 1*DGUAR
 DECIMAL = 1*DGUAR "." 1*DGUAR
 CADENA = %x22 CAR %x22
+OBJ = ID/(EXPR ":" ID)
+ID = VARIABLE/CONSTANTE
+VARIABLE = 1*ALFA *(ALFA/DGUAR/"_")
+CONSTANTE = 1*ALFAMAY *(ALFAMAY/DGUAR/"_")
 LLAMADA = OBJ "(" [LISTAEXPR] ")"
 OP  = "^"/"$"/"*"/"/"/"%"/"+"/"-"/"<="/">="/"<"/">"/"="/"~"/"&"/"|"
+LISTAID = ID ["," SEP ID]
+LISTAEXPR = EXPR ["," SEP EXPR]
+LISTADEC = *(OBJ SEP ID *SEP "," *SEP) OBJ SEP ID
 #+end_src
 
 * Compilador
 ** Parámetros
-- d :: Incluye información del código fuente original
-- f :: Número decimal, de 0 a 1023 que representa las banderas activadas. Predeterminadamente, 495 (0111101111)
-- h :: Ayuda del programa
-- i :: Nombre del archivo fuente a leer. Predeterminadamente, stdin
-- m :: Rutas en dónde buscar módulos, separadas por comas
-- o :: Nombre del XML a escribir. Predeterminadamente, stdout
-- v :: Versión
+- -d :: Incluye información del código fuente original
+- -f :: Número decimal, de 0 a 1023 que representa las banderas activadas. Predeterminadamente, 495 (0111101111)
+- -h :: Ayuda del programa
+- -i :: Nombre del archivo fuente a leer. Predeterminadamente, stdin
+- -o :: Nombre del XML a escribir. Predeterminadamente, stdout
+- -v :: Versión
+* Intérprete
+- -i :: Nombre del programa a leer. Predeterminadamente, stdin
+- -m :: Rutas en dónde buscar módulos, separadas por comas
 ** Avisos
 Clave: W: permite, con advertencia; A: permite; E: no permite
 - redef :: (E) Permite redefinir variables ya definidas

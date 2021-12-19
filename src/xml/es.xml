@@ -13,7 +13,41 @@
     <l:gentext key="PARAMETROS_INVALIDOS" text="La función %s necesita %z parámetros, pero has pasado %z" />
     <l:gentext key="IDENTIFICADOR_INVALIDO" text="Identificador %s inválido" />
     <l:gentext key="SIN_MEMORIA" text="Memoria insuficiente" />
-    <l:gentext key="ERROR_E_S" text="El archivo no pudo abrirse" />
+    <l:gentext key="ERROR_E_S" text="El programa o módulo no pudo abrirse" />
+    <l:gentext key="ERROR_XML_E_S" text="El programa o módulo no pudo procesarse" />
+    <l:gentext key="ERROR_XML_VACIO" text="El programa o módulo no pudo procesarse" />
+    <l:gentext key="ERROR_XML_ERRONEO" text="El archivo XML no es del tipo correcto" />
     <l:gentext key="ERROR_IGNOTO" text="Hubo un error desconocido" />
+
+    <!-- Salida de consola -->
+    <l:gentext key="L_AYUDA_1" text="Uso: linguini [-d] [-f 0-1023] [-h] [-i &lt;archivo>] [-m &lt;rutas>] [-o &lt;archivo>] [-v]" />
+    <l:gentext key="L_AYUDA_2" text="Opciones:" />
+    <l:gentext key="L_AYUDA_3" text="-d\tMuestra mensajes de depuración" />
+    <l:gentext key="L_AYUDA_4" text="-f\tNúmero para configurar las banderas" />
+    <l:gentext key="L_AYUDA_5" text="-h\tMuestra esta ayuda" />
+    <l:gentext key="L_AYUDA_6" text="-i\tArchivo de entrada. Predeterminadamente, la entrada estándar" />
+    <l:gentext key="L_AYUDA_7" text="-o\tArchivo de salida. Predeterminadamente, la salida estándar" />
+    <l:gentext key="L_AYUDA_8" text="-v\tMuestra información sobre el programa" />
+    <l:gentext key="R_AYUDA_1" text="Uso: remy [-h] [-i &lt;archivo>] [-m &lt;rutas>] [-v]" />
+    <l:gentext key="R_AYUDA_2" text="Opciones:" />
+    <l:gentext key="R_AYUDA_3" text="-h\tMuestra esta ayuda" />
+    <l:gentext key="R_AYUDA_4" text="-i\tArchivo de entrada. Predeterminadamente, la entrada estándar" />
+    <l:gentext key="R_AYUDA_5" text="-m\tRuta para buscar módulos. Predeterminadamente, el directorio actual" />
+    <l:gentext key="R_AYUDA_6" text="-v\tMuestra información sobre el programa" />
+    <l:gentext key="L_VERSION_1" text="Linguini 2.0 (linguini-2.0.0)" />
+    <l:gentext key="L_VERSION_2" text="Copyright (c) 2021 Giovanni Alfredo Garciliano Díaz" />
+    <l:gentext key="L_VERSION_3" text="Este programa está bajo la Licencia Pública General de GNU versión 3.0, o posterior." />
+    <l:gentext key="L_VERSION_4" text="Hecho para un proyecto de la asignatura de Fundamentos de Programación, en la Facultad de Ingeniería de la UNAM." />
+    <l:gentext key="L_VERSION_5" text="Más información en &lt;https://www.raiponce.xyz/proyectos/linguini/>." />
+    <l:gentext key="R_VERSION_1" text="Linguini 2.0 (remy-2.0.0)" />
+    <l:gentext key="R_VERSION_2" text="Copyright (c) 2021 Giovanni Alfredo Garciliano Díaz" />
+    <l:gentext key="R_VERSION_3" text="Este programa está bajo la Licencia Pública General de GNU versión 3.0, o posterior." />
+    <l:gentext key="R_VERSION_4" text="Hecho para un proyecto de la asignatura de Fundamentos de Programación, en la Facultad de Ingeniería de la UNAM." />
+    <l:gentext key="R_VERSION_5" text="Más información en &lt;https://www.raiponce.xyz/proyectos/linguini/>." />
+    <l:gentext key="PARAM_DESCONOCIDO" text="Has pasado un argumento no reconocido." />
+    <l:gentext key="PARAM_INCOMPLETO" text="Falta un valor para un argumento. Ejecute linguini -h para ver las opciones disponibles." />
+    <l:gentext key="VAL_F_INVALIDO" text="La configuración de las banderas es inválida. Debe ser un número del 0 al 1023." />
+    <l:gentext key="EMPEZANDO_COMPILACION" text="Empezando compilación" />
+    <l:gentext key="CARACTER_ILEGAL" text="Caracter ilegal" />
   </l:l10n>
 </l:i18n>

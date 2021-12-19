@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE RESOURCES>
-<resources xmlns="https://www.raiponce.xyz/proyectos/config#">
+<resources xmlns="https://www.raiponce.xyz/proyectos/resources#">
+  <!-- Configuración general -->
+  <string name="IDIOMA">es</string>
   <!-- Palabras clave -->
   <!-- Bloques -->
   <string name="LING_PC_FUNCION">Funcion</string>
@@ -44,13 +45,6 @@
   <string name="LING_VAL_VERDADERO">Verdadero</string>
   <string name="LING_VAL_FALSO">Falso</string>
   <!-- Llamadas al sistema -->
-  <array name="LING_LLAM_PAUSA">
-    <string query="win">pause>NUL</string>
-    <string query="unix">read -rspn1</string>
-  </array>
-
-<!--
-#if defined(__WIN32__) || defined(__CYGWIN__)
-#elif defined(__unix__)
-#endif-->
+  <string name="LING_LLAM_PAUSA_WIN">pause>NUL</string>
+  <string name="LING_LLAM_PAUSA_UNIX">read -rspn1</string>
 </resources>

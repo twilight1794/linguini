@@ -29,48 +29,6 @@ enum Utils_Codigos {
   DICC_IDENTIFICADOR_INVALIDO
 };
 
-/*
- * Cadenas de texto UTF-8 variables
- */
-
-/**
- * @brief Crea una cadena de texto vacía
- * @return Puntero a una cadena
- */
-unsigned char* Cadena_Crear(void);
-
-/**
- * @brief Añade un caracter a la cadena de caracteres
- * @param cad Cadena de texto a manipular
- * @param c Puntero al caracter a añadir
- */
-int Cadena_Anadir(unsigned char **cad, const unsigned char *c);
-
-/**
- * @brief Concatena una cadena a la cadena de caracteres
- * @param cad Cadena de texto a manipular
- * @param c Cadena de texto a añadir
- */
-int Cadena_Concatenar(unsigned char **cad, unsigned char *c);
-
-/**
- * @brief Quita un caracter de la cadena de caracteres
- * @param cad Cadena de texto a manipular
- */
-int Cadena_Quitar(unsigned char **cad);
-
-/**
- * @brief Indica el tamaño de una cadena de caracteres
- * @param cad Cadena de texto a manipular
- */
-int Cadena_Tamano(unsigned char *cad, size_t *t);
-
-/**
- * @brief Dado un caracter, indica cuántos bytes ocupa si es codificado en UTF-8
- * @param c Puntero a caracter
- */
-size_t Cadena_tamanoCaracter(const unsigned char *c);
-
 /**
  * Diccionario
  */

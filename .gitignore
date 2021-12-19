@@ -1,6 +1,10 @@
 *.exe
-*.*~
-*.out
+remy
+linguini
+*~
+*.o
 *.html
 docs
 build
+src/xml/*.h
+config.h

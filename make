@@ -1,6 +1,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+function getconfig(){
+  grep $1 config.xml | sed -e 's/.*">//;s/<\/string>//'
+}
+
+
 #xpath -q -e '//span[@id="yfs_l10_goog"][1]/text()'
 
 ### Explicación
@@ -22,14 +27,21 @@ TARGET=('remy' 'linguini')
 if [[ ${1:-v} == tests ]]; then
   echo "Estableciendo objetivos…"
   TARGET=('main')
+  exit
+fi
+
+if [[ ${1:-v} == prepare ]]; then
+  echo "Preparando entorno"
+  apt install libxml2-dev pandoc doxygen
 fi
 
 if [[ ${1:-v} == clean ]]; then
   echo "Limpiando…"
-  #rm -rvf *.o ${TARGET[@]} *~
-  rm -rvf bin/*
-  rm -rvf *~
-  rm -rvf *.html
+  rm -rvf *.exe ${TARGET[@]} *~ *.o *.html
+  rm -rvf docs/*
+  rm -rvf build/*
+  rm -rvf src/xml/*.h
+  rm -rvf config.h
   exit
 fi
 
@@ -38,24 +50,23 @@ if [[ ${1:-v} == docs ]]; then
   command -v pandoc >/dev/null 2>&1
   if [[ $? == 0 ]]; then
     pandoc linguini.org -o linguini.md
-  #else
-    #echo >&2 "¡Necesito pandoc para generar la página de inicio de Doxygen!"
+    doxygen Doxyfile
+  else
+    echo >&2 "Pandoc no está instalado, omitiendo inicio…"
+    sed -e 's/linguini.md//" Doxyfile | doxygen -
   fi
-
-
-  doxygen Doxyfile
   exit
 fi
 
 
 # Compilación
-command -v xpath >/dev/null 2>&1
-if [[ $? == 0 ]]; then
-  echo "libxml-xpath-perl instalado"
-else
-  echo >&2 "libxml-xpath-perl no está instalado"
-  exit 1
-fi
+#command -v xpath >/dev/null 2>&1
+#if [[ $? == 0 ]]; then
+#  echo "libxml-xpath-perl instalado"
+#else
+#  echo >&2 "libxml-xpath-perl no está instalado"
+#  exit 1
+#fi
 
 command -v xpath >/dev/null 2>&1
 if [[ $? == 0 ]]; then
@@ -65,11 +76,36 @@ else
   exit 1
 fi
 
+# Procesando configuración
+echo "Procesando: config.xml"
+echo -e "#ifndef CONFIG\n#define CONFIG\n" > src/config.h
+grep "LING_PC_" config.xml | sed -e 's/.*<string name="/#define /;s/">/="/;s/<\/string>/"/;s/&lt;/</g;s/&amp;/\&/g' >> src/config.h
+grep "LING_OP_" config.xml | sed -e 's/.*<string name="/#define /;s/">/="/;s/<\/string>/"/;s/&lt;/</g;s/&amp;/\&/g' >> src/config.h
+grep "LING_VAL_" config.xml | sed -e 's/.*<string name="/#define /;s/">/="/;s/<\/string>/"/;s/&lt;/</g;s/&amp;/\&/g' >> src/config.h
+echo "#if defined(__WIN32__) || defined(__CYGWIN__)" >> src/config.h
+grep "_WIN" config.xml | sed -e 's/.*<string name="/#define /;s/_WIN">/="/;s/<\/string>/"/;s/&lt;/</g;s/&amp;/\&/g' >> src/config.h
+echo "#elif defined(__unix__)" >> src/config.h
+grep "_UNIX" config.xml | sed -e 's/.*<string name="/#define /;s/_UNIX">/="/;s/<\/string>/"/;s/&lt;/</g;s/&amp;/\&/g' >> src/config.h
+echo -e "#endif\n#endif" >> src/config.h
+
+# Generando código C desde los XMLs
+cd src/xml
+for i in *.xml; do
+  echo "Procesando: ${i%.*}"
+  echo -e "#ifndef I18N_${i%.*}\n#define I18N_${i%.*}\n" > "i18n_${i%.*}.h"
+  grep "<l:gentext" $i | sed -e 's/.*<l:gentext key="/#define MSG_/;s/" text//;s/ \/>//;s/&lt;/</g' >> "i18n_${i%.*}.h"
+  echo "#endif" >> "i18n_${i%.*}.h"
+done
+cd ../..
+
+
+# Generando archivos objeto
 for i in "${LIBS[@]}"; do
   echo "Creando objeto: " $i
   gcc ${FLAGS[@]} -c src/$i.c -o bin/$i.o
 done
 
+## Generando ejecutables
 for i in "${TARGET[@]}"; do
   echo "Creando ejecutable: " $i
   gcc ${FLAGS[@]} -o bin/$i src/$i.c bin/*.o

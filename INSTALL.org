@@ -12,7 +12,6 @@
 Para compilar el proyecto se requieren algunas bibliotecas externas. Se especifican los nombres de los paquetes, según se reconocen en la rama /bullseye/ de Debian:
 - ~doxygen~ para generar la documentación con Doxygen.
   - Opcionalmente, ~pandoc~, si se quiere incluir la referencia del lenguaje en la página principal de la documentación de Doxygen.
-- ~libxml-xpath-perl~ para compilar los archivos XML de configuración. 
 - ~libxml2-dev~ para que Linguini lea archivos XML.
 
 * Proyecto

@@ -53,39 +53,6 @@ typedef struct {
  * @param simbolos Objeto Array con los símbolos generados
  */
 ling_codigomsg alexico(FILE *archivo, Array *simbolos){
-  char c;
-  bool sentencia = true;
-
-  while(!feof(archivo)){
-    c = (char) fgetc(archivo);
-    if (c == '#') while (c != '\n'){c = (char) fgetc(archivo);}
-    else if (c == ' ' || c == '\r' || c == '\t' || c == '\n') continue;
-    // Sentencia
-    else if (isalpha(c) && sentencia){
-      sentencia = false;
-      char *tkn = iniciarCadena();
-      while (isalpha(c) && c != ' ' && c != '\r' && c != '\t' && c != '\n'){
-        anadirCadena(&tkn, c);
-        c = (char) fgetc(archivo);
-      }
-      if (c != ' ' && c != '\r' && c != '\t' && c != '\n') return Registrar(COD_CARACTER_ILEGAL, c);
-      if (c == '\n') sentencia = true;
-      anadirArray(simbolos, tkn, SIMBOLO_SENTENCIA);
-    }
-    // Expresion
-    else if (!sentencia && (isalnum(c) || c == '_' || c == '"')){
-      char *tkn = iniciarCadena();
-      while (c != '\n'){
-        sentencia = true;
-        anadirCadena(&tkn, c);
-        c = (char) fgetc(archivo);
-      }
-      anadirArray(simbolos, tkn, SIMBOLO_EXPRESION);
-    }
-    else if (feof(archivo)) return COD_OK;
-    else return Registrar(COD_CARACTER_ILEGAL, c);
-  }
-  return COD_OK;
 }
 
 /*
@@ -402,18 +369,9 @@ int main(int argc, char *argv[]){
   if (argc == 1) return Registrar(COD_NOARCHIVO);
   else if (!strcmp(argv[1], "-a")){
     puts("Uso: linguini [-i] archivo");
-    puts("Opciones:");
-    puts("-a\tMuestra esta ayuda");
-    puts("-i\tEjecuta el script paso a paso el programa y va explicando qué va haciendo");
-    puts("-v\tMuestra información sobre el programa");
-    return 0;
   }
   else if (!strcmp(argv[1], "-v")){
     puts("Linguini 1.0");
-    puts("Copyright (c) 2020 Giovanni Alfredo Garciliano Díaz");
-    puts("Este programa está bajo la Licencia Pública General de GNU versión 3.0, o posterior");
-    puts("Hecho para un proyecto de la asignatura de Fundamentos de Programación, en la Facultad de Ingeniería de la UNAM");
-    return 0;
   }
   else if (argc == 3 && !strcmp(argv[1], "-i")){
     prog.pasoAPaso = true;
