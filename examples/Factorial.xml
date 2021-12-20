@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<linguini xmlns="https://www.raiponce.xyz/proyectos/linguini/" tipo="1" nombre="Factorial">
-  <importar>
-    <expr>
-      <cadena>ES</cadena>
-    </expr>
-  </importar>
-  <funcion nombre="Factorial">
-    <acepta clase="Entero" variable="x" />
-    <declarar clase="Entero" variable="res" />
-    <condicional>
-      <bloque>
-        <condicion><var>x</var><entero>0</entero><op tipo="menorque" /></condicion>
-        <asignara variable="res"><entero>0</entero><entero>1</entero><op tipo="resta" /></asignara>
-      </bloque>
-      <bloque>
-        <condicion><var>x</var><entero>0</entero><op tipo="igualdad" /></condicion>
-        <asignara variable="res"><entero>1</entero></asignara>
-      </bloque>
-      <delocontrario>
-        <condicion><var>x</var><entero>0</entero><op tipo="menorque" /></condicion>
-        <asignara variable="res"><var>x</var><llamada funcion="Factorial">1</llamada><op tipo="resta" /></asignara>
-      </delocontrario>
-    </condicional>
-  </funcion>
-
-  <llamada funcion="ES:Imprimir">
-    <param><cadena>HolaMundo</cadena></param>
-  </llamada>
-  <devolver implicito="implicito"><entero>0</entero></devolver>
-</linguini>
+<l:linguini xmlns="https://www.raiponce.xyz/proyectos/linguini/" l:tipo="1" l:id="Factorial">
+  <l:usar><l:cadena l:val="ES" /></l:usar>
+  <l:funcion l:id="Factorial">
+    <acepta l:id="x"><l:i l:id="Entero" /></acepta>
+    <devuelve><l:id><l:i l:id="Entero" /></devuelve>
+    <declarar>
+      <l:obj><l:i l:id="res" /></l:obj>
+      <l:i l:id="Entero" />
+    </declarar>
+    <l:condicional>
+      <l:caso>
+        <l:condicion><l:i l:id="x" /><l:entero l:val="0" l:base="10" /><op tipo="10" /></l:condicion>
+        <l:asignar>
+          <l:obj><l:i l:id="res" /></l:obj>
+          <l:grupo><l:entero l:val="0" l:base="10" /><l:entero l:val="1" l:base="10" /><op tipo="resta" /></l:grupo>
+        </l:asignar>
+      </l:caso>
+      <l:caso>
+        <l:condicion><l:i l:id="x" /><l:entero l:val="0" l:base="10" /><op l:tipo="12" /></l:condicion>
+        <l:asignar>
+          <l:obj><l:i l:id="res" /></l:obj>
+          <l:entero l:val="1" l:base="10" />
+        </l:asignar>
+      </l:caso>
+      <l:predeterminado>
+        <l:asignar>
+          <l:obj><l:i l:id="res" /></l:obj>
+          <l:grupo>
+            <l:i l:id="x" />
+            <l:llamada>
+              <l:obj><l:i l:id="Factorial"/></l:obj>
+              <l:group><l:i l:id="x" /><l:entero l:val="1" l:base="10" /><l:op l:tipo="3" />
+            </l:llamada>
+            <l:op l:tipo="6" />
+          </l:grupo>
+        </l:asignar>
+      </l:predeterminado>
+    </l:condicional>
+    <l:regresar><l:i l:id="res" /></l:regresar>
+  </l:funcion>
+  <l:llamada>
+    <l:obj><l:i l:id="ES" /><l:op l:tipo="0" /><l:i l:id="Imprimir"></l:obj>
+    <l:param><l:cadena l:val="HolaMundo" /></l:param>
+  </l:llamada>
+  <l:regresar l:implicito="implicito"><l:entero l:val="0" l:base="10" /></l:regresar>
+</l:linguini>

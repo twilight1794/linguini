@@ -15,6 +15,7 @@
 #include "expresiones.h"
 #include "lexico.h"
 #include "sintactico.h"
+#include "config.h"
 
 int main(int argc, char* argv[]){
   FILE *entrada = NULL;

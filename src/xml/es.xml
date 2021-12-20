@@ -47,7 +47,10 @@
     <l:gentext key="PARAM_DESCONOCIDO" text="Has pasado un argumento no reconocido." />
     <l:gentext key="PARAM_INCOMPLETO" text="Falta un valor para un argumento. Ejecute linguini -h para ver las opciones disponibles." />
     <l:gentext key="VAL_F_INVALIDO" text="La configuración de las banderas es inválida. Debe ser un número del 0 al 1023." />
-    <l:gentext key="EMPEZANDO_COMPILACION" text="Empezando compilación" />
+    <l:gentext key="DEP_EMPEZANDO_COMPILACION" text="Empezando compilación" />
+    <l:gentext key="DEP_INICIO_PROGRAMA" text="El archivo leído es un programa." />
+    <l:gentext key="DEP_FIN_PROGRAMA" text="Instrucciones finalizadas." />
+    <l:gentext key="DEP_ESMODULO" text="El archivo leído es un módulo, no se puede ejecutar." />
     <l:gentext key="CARACTER_ILEGAL" text="Caracter ilegal" />
   </l:l10n>
 </l:i18n>

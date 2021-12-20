@@ -1,3 +1,4 @@
-gcc -g -c pila.c -o pila.o
-gcc -g -o prueba pila.o prueba_lista.c
+gcc -g -c diccionario.c -o diccionario.o
+gcc -g -c lista.c -o lista.o
+gcc -g -o prueba diccionario.o prueba.c
 ./prueba

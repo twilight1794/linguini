@@ -17,9 +17,13 @@
 
 #include "lista.h"
 
+/* 2<<(x-1) == 2^x, sin math.h */
+#define POT2(x) (2<<((x)-1))
+
 enum Dicc_Codigos {
   DICC_OK = 100,
   DICC_DICC_NOVACIO,
+  DICC_DICC_VACIO,
   DICC_DICC_INVALIDO,
   DICC_LLAVE_INEXISTENTE,
   DICC_ERROR_SISTEMA
@@ -108,7 +112,7 @@ int Dicc_Vaciar(Dicc *d);
  * @param d Puntero a un diccionario
  * @param[out] t Número de entradas guardadas en el diccionario
  */
-int Dicc_Tamano(Dicc *d, size_t *t);
+int Dicc_Tamano(Dicc *d, Dicc_Hash *t);
 
 /**
  * @brief Itera sobre las llaves de un diccionario, pasando a una función cada entrada del diccionario
@@ -116,6 +120,6 @@ int Dicc_Tamano(Dicc *d, size_t *t);
  * @param f Función a ejecutar por cada nodo
  * @param cok Código de operación que indica una operación exitosa
  */
-int Dicc_PorCada(Dicc *d, int (*f)(void**), int cok);
+int Dicc_PorCada(Dicc *d, int (*f)(Dicc_Entrada*), int cok);
 
 #endif

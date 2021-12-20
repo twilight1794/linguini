@@ -53,7 +53,7 @@ LDE_Nodo* LDE_Nodo_Crear(void *x);
  * @param n Puntero a un nodo
  * @param[out] v Puntero a puntero a donde se guardará el valor obtenido
  */
-int LDE_Nodo_Obtener(LDE_Nodo *n, void *v);
+int LDE_Nodo_Obtener(LDE_Nodo *n, void** v);
 
 /**
  * @brief Asigna un valor a un nodo

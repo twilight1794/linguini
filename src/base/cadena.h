@@ -7,14 +7,13 @@
  * @copyright Licencia Pública General de GNU 3.0 o posterior
  */
 
-#ifndef UTILS_INC
-#define UTILS_INC
+#ifndef CADENA_INC
+#define CADENA_INC
 
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
-
 
 enum Cadena_Codigos {
   CADENA_OK = 100,
@@ -43,7 +42,7 @@ int Cadena_Anadir(Cadena *cad, const Cadena c);
  * @param cad Cadena de texto a manipular
  * @param c Cadena de texto a añadir
  */
-int Cadena_Concatenar(Cadena *cad, Cadena c);
+int Cadena_Concatenar(Cadena *cad, const Cadena c);
 
 /**
  * @brief Quita un caracter de la cadena de caracteres

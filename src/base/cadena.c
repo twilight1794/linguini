@@ -6,7 +6,7 @@ unsigned char* Cadena_Crear(void){
   return cad;
 }
 
-int Cadena_Anadir(unsigned char **cad, const unsigned char *c){
+int Cadena_Anadir(Cadena *cad, const Cadena c){
   size_t tcar, tcad, i = 0;
   if (*cad == NULL || c == NULL) return (int) CADENA_CADENA_INVALIDA;
   tcar = Cadena_tamanoCaracter(c);
@@ -17,10 +17,10 @@ int Cadena_Anadir(unsigned char **cad, const unsigned char *c){
     (*cad)[tcad+i] = c[i];
     i++;
   }
-  return (int) UTILS_OK;
+  return (int) CADENA_OK;
 }
 
-int Cadena_Concatenar(unsigned char **cad, unsigned char *c){
+int Cadena_Concatenar(Cadena *cad, const Cadena c){
   unsigned char *pCad, *pC;
   size_t tcad, tcar;
   if (*cad == NULL || c == NULL) return (int) CADENA_CADENA_INVALIDA;
@@ -39,10 +39,10 @@ int Cadena_Concatenar(unsigned char **cad, unsigned char *c){
     };
     Cadena_Tamano(*cad, &tcad); /* Actualiza el tamaño de la cadena receptora para la siguiente iteración */
   }
-  return (int) UTILS_OK;
+  return (int) CADENA_OK;
 }
 
-int Cadena_Quitar(unsigned char **cad){
+int Cadena_Quitar(Cadena *cad){
   size_t tcad, i = 0;
   if (*cad == NULL) return (int) CADENA_CADENA_INVALIDA;
   Cadena_Tamano(*cad, &tcad);
@@ -52,21 +52,21 @@ int Cadena_Quitar(unsigned char **cad){
   *cad = realloc(*cad, tcad-i+1);
   if (*cad == NULL) return (int) CADENA_OP_FALLIDA;
   (*cad)[tcad-i] = '\0';
-  return (int) UTILS_OK;
+  return (int) CADENA_OK;
 }
 
-int Cadena_Tamano(unsigned char *cad, size_t *t){
+int Cadena_Tamano(Cadena cad, size_t *t){
   *t = 0;
   if (cad != NULL){
     while (*cad != '\0'){
       cad++;
       (*t)++;
     }
-    return (int) UTILS_OK;
   } else return (int) CADENA_CADENA_INVALIDA;
+  return (int) CADENA_OK;
 }
 
-size_t Cadena_tamanoCaracter(const unsigned char *c){
+size_t Cadena_tamanoCaracter(const Cadena c){
   size_t n;
   if (*c == 0xC0 || *c == 0xC1 || *c >= 0xF5) n=0;
   else if (*c >= 0xF0) n=4;

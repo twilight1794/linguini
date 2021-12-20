@@ -2,6 +2,7 @@
 <resources xmlns="https://www.raiponce.xyz/proyectos/resources#">
   <!-- Configuración general -->
   <string name="IDIOMA">es</string>
+  <string name="ESPN_LING">https://www.raiponce.xyz/proyectos/linguini#</string>
   <!-- Palabras clave -->
   <!-- Bloques -->
   <string name="LING_PC_FUNCION">Funcion</string>

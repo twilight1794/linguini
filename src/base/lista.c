@@ -10,7 +10,7 @@ LDE_Nodo* LDE_Nodo_Crear(void *x){
   return n;
 }
 
-int LDE_Nodo_Obtener(LDE_Nodo *n, void *v){
+int LDE_Nodo_Obtener(LDE_Nodo *n, void** v){
   if (n != NULL){
     *v = n->dato;
     return (int) LDE_OK;
@@ -55,7 +55,7 @@ int LDE_AnadirAnterior(LDE *lista, void *v){
       LDE_Obtener(lista, &ptr);
       LDE_Inicio(lista);
       LDE_Obtener(lista, &inicio);
-      LDE_Colocar(lista, ptr);
+      LDE_Apuntar(lista, ptr);
       if (ptr != inicio){
         ptr->anterior->posterior = n;
         n->anterior = ptr->anterior;
@@ -82,7 +82,7 @@ int LDE_AnadirPosterior(LDE *lista, void *v){
       LDE_Obtener(lista, &ptr);
       LDE_Fin(lista);
       LDE_Obtener(lista, &fin);
-      LDE_Colocar(lista, ptr);
+      LDE_Apuntar(lista, ptr);
       if (ptr != fin){
         ptr->posterior->anterior = n;
         n->posterior = ptr->posterior;
@@ -121,7 +121,7 @@ int LDE_Quitar(LDE *lista){
       LDE_Obtener(lista, &inicio);
       LDE_Fin(lista);
       LDE_Obtener(lista, &fin);
-      LDE_Colocar(lista, ptr);
+      LDE_Apuntar(lista, ptr);
       v = ptr->dato;
 
       /* Ajustar cursor */
@@ -164,8 +164,8 @@ int LDE_Posicion(LDE *lista, size_t *pos){
       *pos = 0;
       while (ptr != meta){
         if (ptr == fin) return (int) LDE_CURSOR_INVALIDO;
-        (*pos++); /* NOTE: ??? */
-        ptr = ptr->siguiente;
+        (*pos)++;
+        ptr = ptr->posterior;
       }
       return (int) LDE_OK;
     } else return (int) LDE_LISTA_VACIA;

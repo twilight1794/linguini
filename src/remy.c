@@ -14,9 +14,139 @@
 #include <math.h>
 
 #include "expresiones.h"
+#include "recolector.h"
+#include "base/cadena.h"
+#include "base/diccionario.h"
+#include "base/lista.h"
+#include "biblioteca/base.h"
+#include "biblioteca/matematica.h"
+#include "biblioteca/es.h"
+#include "config.h"
+
+
+enum Remy_Codigos {
+  REMY_OK = 100,
+  REMY_INSTRUCCION_INVALIDA,
+  REMY_COD_SALIDA_SISTEMA,
+  REMY_ERROR_SISTEMA
+}
+
+/*
+ * Marco de pila
+ */
+
+/*
+ * Elemento de marco de pila
+ */
+typedef struct {
+  Cadena id; /**<   */
+  bool principal; /**< Indica si el valor es una referencia a otro objeto */
+  size_t val;
+} MarcoPila_Elem;
+
+static MarcoPila_Elem* MarcoPila_Elem_Crear(Cadena id, bool principal, void *val){
+  MarcoPila_Elem* e = (MarcoPila_Elem*) malloc(sizeof(MarcoPilaElem));
+  if (e != NULL){
+    Cadena
+  }
+  return e;
+}
+
+static void MarcoPila_Elem_Crear(MarcoPila_Elem** e){
+  
+}
+
+/*
+ * @brief 
+ * @param padre Bloque padre en el cual basar el marco de pila a crear. Si es nulo, quiere decir que el bloque es una unidad
+ * @param bloque Nombre del bloque del marco de pila
+ * @param obj Objeto que representa el bloque del marco de pila
+ */
+static Dicc* MarcoPila_Crear(Dicc *padre, Cadena bloque){
+  /* Copiar elementos padre */
+  Dicc* m = Dicc_Crear();
+  /* Estamos en el espacio global */
+  if (padre != NULL){
+    size_t i = 0;
+    Dicc_Anadir(m, bloque, obj);
+    /* Base */
+    Cadena* Cadena_Crear();
+    for ()
+  }
+}
+
+static int MarcoPila__(Dicc_Entrada** v){
+  free(dato);
+}
+
+static int MarcoPila_Destruir(Dicc **d){
+  Dicc_PorCada(*d, MarcoPila_Destruir_, REMY_OK);
+  Dicc_Vaciar(*d);
+  Dicc_Destruir(d);
+}
+
+/**
+ * @brief Comprueba si una etiqueta tiene un nombre determinado
+ * @param cur 
+ * @param cad 
+ */
+inline static bool compararElem(const xmlNodePtr cur, char* cad){
+  return xmlStrcmp(cur->name, (const xmlChar *) cad) && xmlStrcmp(cur->ns->href, (const xmlChar *) ESPN_LING);
+}
+
+/**
+ * @brief Libera todas las estructuras principales usadas por el intérprete
+ * @param datos Lista de objetos
+ * @param marco Marco de pila global
+ */
+static void Remy_Finalizar(Remy_Objetos** datos, Dicc** marco){
+  Recolector_Destruir(*datos);
+  MarcoPila_Destruir(marco);
+  return 0;
+}
+
+/*
+ * Ejecuta una instrucción
+ * @param instruccion Instrucción a ejecutar
+ * @param tipoPadre Bloque padre de la instrucción a ejecutar
+ * @param datos Lista de objetos
+ * @param marco Marco de pila padre
+ */
+int Remy_EjecInstruccion(xmlNodePtr instruccion, xmlNodePtr padre, Remy_Objetos* datos, Dicc* marco){
+  /* Sentencias */
+  if (!compararElem(cur, "declarar")){
+    
+  } else if (!compararElem(cur, "asignar")){
+    
+  } else if (!compararElem(cur, "eliminar")){
+    
+  } else if (!compararElem(cur, "usar")){
+    
+  } else if (!compararElem(cur, "continuar")){
+    
+  } else if (!compararElem(cur, "regresar")){
+    
+  }
+  /* Bloques */
+  else if (!compararElem(cur, "funcion")){
+    
+  } else if (!compararElem(cur, "clase")){
+    
+  } else if (!compararElem(cur, "condicional")){
+    
+  } else if (!compararElem(cur, "porcada")){
+    
+  } else if (!compararElem(cur, "escoger")){
+    
+  } else {
+    return (int) REMY_INSTRUCCION_INVALIDA;
+  }
+}
 
 int main(int argc, char *argv[]){
   char *entrada;
+  xmlDocPtr doc;
+  xmlNodePtr cur;
 
   Dicc *args; /* Diccionario de argumentos */
   void *arg; /* Argumento a manejar */
@@ -59,8 +189,8 @@ int main(int argc, char *argv[]){
   /* Entrada */
   Dicc_Obtener(args, "i", &arg);
   if (arg == NULL) entrada = "-";
-  xmlDocPtr doc = xmlParseFile(entrada);
-  xmlNodePtr cur;
+  doc = xmlParseFile(entrada);
+  
   if (doc == NULL){
     Registro_Registrar(true, 0, MSG_ERROR_E_S_XML);
     return 1;
@@ -71,17 +201,32 @@ int main(int argc, char *argv[]){
     xmlFreeDoc(doc);
     return 1;
   }
-  if (xmlStrcmp(cur->name, (const xmlChar *) "linguini") && xmlStrcmp(cur->ns->href, (const xmlChar *) "https://www.raiponce.xyz/proyectos/linguini#")){
+  if (compararElems(cur, "linguini")){
     Registro_Registrar(true, 0, MSG_ERROR_XML_ERRONEO);
     xmlFreeDoc(doc);
     return 1;
-  }
-  /* En este punto, estamos listos para analizar semánticamente */
-  cur = cur->xmlChildrenNode;
-  while (cur != NULL) {
-    if ((!xmlStrcmp(cur->name, (const xmlChar *)"storyinfo"))){
-      parseStory (doc, cur);
+  } else {
+    /* En este punto, estamos listos para analizar semánticamente */
+    xmlChar* id = xmlGetNsProp(cur, "id", ESPN_LING);
+    xmlChar* tipo = xmlGetNsProp(cur, "tipo", ESPN_LING);
+    if (!xmlStrcmp(tipo, (const xmlChar *) "0")){
+      Remy_Objetos* datos;
+      Dicc* pila;
+
+      Registro_Registrar(true, 4, MSG_DEP_INICIO_PROGRAMA);
+      datos = Recolector_Crear();
+      pila = MarcoPila_Crear(NULL); /* Marco de pila global */
+      cur = cur->xmlChildrenNode;
+      while (cur != NULL){
+        int cod = Remy_EjecInstruccion(cur, xmlNodePtr padre, Remy_Objetos* datos, Dicc* marco);
+        if (cod != REMY_OK) return cod;
+        cur = cur->next;
+      }
+      Registro_Registrar(true, 4, MSG_DEP_FIN_PROGRAMA);
+    } else {
+      Registro_Registrar(true, 1, MSG_DEP_ESMODULO);
+      xmlFreeDoc(doc);
+      return 1;
     }
-    cur = cur->next;
   }
 }
